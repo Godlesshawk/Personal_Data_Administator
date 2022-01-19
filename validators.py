@@ -18,16 +18,16 @@ def _concatenate(postalcodes):
 def _check_postalcode(value, postalcodes):
     while True:
         try:
-            postalcode = int(value)
+            postal_code = int(value)
         except ValueError:
             raise ValueError(f"Please enter a valid postalcode, e.g., {_concatenate(postalcodes)}. Your input '{value}' "
                              f"was not numerical.")
 
-        if postalcode not in postalcodes:
-            raise ValueError(f"Please enter a valid postal code, your input {postalcode} is not in the valid postal code "
+        if postal_code not in postalcodes:
+            raise ValueError(f"Please enter a valid postal code, your input {postal_code} is not in the valid postal code "
                              f"list {_concatenate(postalcodes)}")
 
-        return postalcode
+        return postal_code
 
 
 def input_bounded_integer(prompt, description, minimum, maximum):
@@ -46,11 +46,22 @@ def input_bounded_integer(prompt, description, minimum, maximum):
 def _check_bounded_integer(value, description, minimum, maximum):
     while True:
         if not type(value) is int:
-            raise TypeError(f"Please enter a valid age, your input {value} is not acceptable.")
+            raise TypeError(f"Please enter a valid number, your input {value} is not acceptable.")
 
         if value > maximum:
-            raise ValueError(f"Please enter a valid age, your input {value} is not between {minimum} and {maximum}.")
+            raise ValueError(f"Please enter a valid number, your input {value} is not between {minimum} and {maximum}.")
         elif value < minimum:
-            raise ValueError(f"Please enter a valid age, your input {value} is not between {minimum} and {maximum}.")
-
+            raise ValueError(f"Please enter a valid number, your input {value} is not between {minimum} and {maximum}.")
         return value
+
+
+def input_string(prompt):
+    while True:
+        value = input(prompt)
+        if not type(value) is str:
+            raise TypeError(f"Please enter only letters.")
+
+        if value.casefold() == 'q':
+            return None
+        else:
+           return value
